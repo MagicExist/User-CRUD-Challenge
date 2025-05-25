@@ -11,7 +11,7 @@ const Home = () => {
 
       <main className="main-content">
         <div className="cta-buttons">
-          <Link to="Client\frontend\src\components\Auth\Login.jsx" className="button button-primary">
+          <Link to="" className="button button-primary">
             Iniciar Sesión
           </Link>
           <Link to="/register" className="button button-secondary">

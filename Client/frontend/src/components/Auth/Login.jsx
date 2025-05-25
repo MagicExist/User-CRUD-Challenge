@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/Login.css';
 
-const Login = () => {
+function Login() {
+  const navigate = useNavigate(); // <-- Asegúrate de que esto esté dentro del componente correcto
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -81,7 +84,12 @@ const Login = () => {
           </div>
         </div>
         
-        <div className="decoration-container">
+        {/* Bloque clickeable para redirigir */}
+        <div
+          className="decoration-container"
+          onClick={() => navigate('/register')}
+          style={{ cursor: 'pointer' }}
+        >
           <div className="decoration-content">
             <h3>Register</h3>
             <p>Don't have an account?</p>
@@ -90,6 +98,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
