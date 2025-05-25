@@ -1,24 +1,35 @@
-import { Link } from "react-router-dom";
-import "../styles/Home.css"; 
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  return (
-    <div className="home-container">
-      <header className="header">
-        <h1>User CRUD</h1>
-        <p>Gestion de usuarios</p>
-      </header>
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
 
-      <main className="main-content">
-        <div className="cta-buttons">
-          <Link to="" className="button button-primary">
-            Iniciar Sesión
-          </Link>
-          <Link to="/register" className="button button-secondary">
-            Registrarse
-          </Link>
-        </div>
-      </main>
+  useEffect(() => {
+    // Obtener usuario y token del localStorage
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('username');
+
+    if (!token) {
+      // Si no hay token, redirigir al login
+      navigate('/login');
+    } else {
+      setUsername(user || 'Usuario');
+    }
+  }, [navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate('/login');
+  };
+
+  return (
+    <div>
+      <h1>Bienvenido usuario: {username}</h1>
+      <button onClick={handleLogout}>
+        Cerrar sesión
+      </button>
     </div>
   );
 };
