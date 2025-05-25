@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -75,7 +76,30 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // Validar solo los campos que vengan en la solicitud (algunos pueden faltar)
+        $validated = $request->validate([
+            'name' => 'sometimes|required|string|max:100',
+            'surname' => 'sometimes|required|string|max:100',
+            'age' => 'sometimes|required|integer',
+            'email' => [
+                'sometimes', 'required', 'string', 'email', 'max:255',
+                Rule::unique('users')->ignore($user->id)
+            ],
+            'password' => 'sometimes|required|string|min:8|confirmed',
+        ]);
+
+        // Si se incluye 'password', la encriptamos
+        if (isset($validated['password'])) {
+            $validated['password'] = Hash::make($validated['password']);
+        }
+
+        // Actualizar solo los campos enviados
+        $user->update($validated);
+
+        return response()->json([
+            'message' => 'Usuario actualizado correctamente.',
+            'data' => $user
+        ], 200);
     }
 
     /**
