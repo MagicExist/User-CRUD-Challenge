@@ -3,63 +3,65 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/Login.css';
 
 function Login() {
-  const navigate = useNavigate(); // <-- Asegúrate de que esto esté dentro del componente correcto
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [success, setSuccess] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
 
     if (!email || !password) {
-      setError('Please fill in all fields');
+      setError('Por favor completa todos los campos.');
       return;
     }
 
-    if (email === 'usuario@ejemplo.com' && password === '123456') {
-      setIsLoggedIn(true);
-    } else {
-      setError('Invalid credentials');
+    try {
+      const response = await fetch('http://127.0.0.1:8000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          device_name: 'react_frontend'
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error al iniciar sesión');
+      }
+
+      const data = await response.json();
+      localStorage.setItem('token', data.token); // Guarda el token
+      setSuccess('Inicio de sesión exitoso.');
+      navigate('/home'); // Redirige a Home.jsx
+
+    } catch (error) {
+      console.error('Login error:', error);
+      setError(error.message);
     }
   };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setEmail('');
-    setPassword('');
-  };
-
-  if (isLoggedIn) {
-    return (
-      <div className="app-container">
-        <div className="login-container">
-          <h2>Welcome home</h2>
-          <p>You have successfully logged in.</p>
-          <div className="status-bar">
-            <span>Remote In 50 days</span>
-            <span>Programmer</span>
-          </div>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="app-container">
       <div className="login-wrapper">
         <div className="login-container">
-          <h2>Welcome</h2>
-          <p>Please enter your details.</p>
-          
+          <h2>Bienvenido</h2>
+          <p>Ingresa tus credenciales.</p>
+
           {error && <div className="error-message">{error}</div>}
-          
+          {success && <div className="success-message">{success}</div>}
+
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Correo electrónico</label>
               <input
                 type="email"
                 id="email"
@@ -68,7 +70,7 @@ function Login() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Contraseña</label>
               <input
                 type="password"
                 id="password"
@@ -76,23 +78,22 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <button type="submit">Login</button>
+            <button type="submit">Iniciar sesión</button>
           </form>
-          
+
           <div className="status-bar">
-            <span>Forgot password?</span>
+            <span>¿Olvidaste tu contraseña?</span>
           </div>
         </div>
-        
-        {/* Bloque clickeable para redirigir */}
+
         <div
           className="decoration-container"
           onClick={() => navigate('/register')}
           style={{ cursor: 'pointer' }}
         >
           <div className="decoration-content">
-            <h3>Register</h3>
-            <p>Don't have an account?</p>
+            <h3>Registrarse</h3>
+            <p>¿No tienes una cuenta?</p>
           </div>
         </div>
       </div>

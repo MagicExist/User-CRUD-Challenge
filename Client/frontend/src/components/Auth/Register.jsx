@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Register.css'; // Usa el mismo CSS
+import '../../styles/Register.css';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -14,28 +14,53 @@ const Register = () => {
     password_confirmation: ''
   });
 
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setSuccess('');
 
     if (formData.password !== formData.password_confirmation) {
-      alert("Las contraseñas no coinciden");
+      setError('Las contraseñas no coinciden');
       return;
     }
 
-    // Aquí enviarías los datos al backend
-    console.log("Datos enviados:", formData);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('token', data.token); // Guarda el token si lo devuelve
+        setSuccess('Registro exitoso');
+        navigate('/home'); // Redirige al Home.jsx
+      } else {
+        const msg = data.message || 'Error al registrar. Verifica los datos.';
+        setError(msg);
+        console.error("Errores:", data);
+      }
+    } catch (err) {
+      console.error("Error de red:", err);
+      setError('No se pudo conectar con el servidor.');
+    }
   };
 
   return (
     <div className="app-container">
       <div className="login-wrapper">
-        
-        {/* Bloque azul a la izquierda */}
         <div
           className="decoration-container"
           onClick={() => navigate('/')}
@@ -47,10 +72,12 @@ const Register = () => {
           </div>
         </div>
 
-        {/* Formulario a la derecha */}
         <div className="login-container">
-          <h2>Register</h2>
-          <p>Create your account</p>
+          <h2>Registro</h2>
+          <p>Crea tu cuenta</p>
+
+          {error && <div className="error-message">{error}</div>}
+          {success && <div className="success-message">{success}</div>}
 
           <form onSubmit={handleSubmit}>
             <div className="form-group">
