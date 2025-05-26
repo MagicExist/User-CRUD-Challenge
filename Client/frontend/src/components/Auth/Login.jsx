@@ -41,7 +41,7 @@ function Login() {
       const data = await response.json();
       localStorage.setItem('token', data.token); // Guarda el token
       setSuccess('Inicio de sesión exitoso.');
-      navigate('/home'); // Redirige a Home.jsx
+      navigate('/home'); 
 
     } catch (error) {
       console.error('Login error:', error);
