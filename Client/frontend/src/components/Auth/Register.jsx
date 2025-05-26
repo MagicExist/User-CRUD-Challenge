@@ -63,7 +63,7 @@ const Register = () => {
       <div className="login-wrapper">
         <div
           className="decoration-container"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/login')}
           style={{ cursor: 'pointer' }}
         >
           <div className="decoration-content">

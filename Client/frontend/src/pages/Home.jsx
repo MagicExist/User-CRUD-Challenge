@@ -1,64 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        setError('No hay token de autenticación. Por favor inicia sesión.');
-        setLoading(false);
-        return;
-      }
+  
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('username');
 
-      try {
-        const response = await fetch('http://127.0.0.1:8000/api/users', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
+    if (!token) {
+      // Si no hay token, redirige al login
+      navigate('/login');
+    } else {
+      setUsername(user || 'Usuario');
+    }
+  }, [navigate]);
 
-        if (!response.ok) {
-          const data = await response.json();
-          setError(data.message || 'Error al obtener usuarios.');
-          setLoading(false);
-          return;
-        }
-
-        const data = await response.json();
-        setUsers(data);  // Ajusta esto si tu API responde con { users: [...] }
-        setLoading(false);
-      } catch (err) {
-        setError('Error de red al obtener usuarios.');
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
-  if (loading) return <div>Cargando usuarios...</div>;
-  if (error) return <div style={{ color: 'red' }}>{error}</div>;
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    navigate('/login');
+  };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Lista de Usuarios</h2>
-      {users.length === 0 ? (
-        <p>No hay usuarios registrados.</p>
-      ) : (
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              <strong>{user.name} {user.surname}</strong> - {user.email}
-            </li>
-          ))}
-        </ul>
-      )}
+    <div>
+      <h1>Bienvenido usuario: {username}</h1>
+      <button onClick={handleLogout}>
+        Cerrar sesión
+      </button>
     </div>
   );
 };
