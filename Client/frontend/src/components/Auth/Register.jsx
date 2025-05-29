@@ -14,6 +14,7 @@ const Register = () => {
     password_confirmation: ''
   });
 
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -26,6 +27,11 @@ const Register = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+
+    if (!acceptedTerms) {
+      setError('Debes aceptar el tratamiento de datos personales.');
+      return;
+    }
 
     if (formData.password !== formData.password_confirmation) {
       setError('Las contraseñas no coinciden');
@@ -44,9 +50,9 @@ const Register = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token); // Guarda el token si lo devuelve
+        localStorage.setItem('token', data.token);
         setSuccess('Registro exitoso');
-        navigate('/home'); // Redirige al Home.jsx
+        navigate('/home');
       } else {
         const msg = data.message || 'Error al registrar. Verifica los datos.';
         setError(msg);
@@ -80,31 +86,49 @@ const Register = () => {
           {success && <div className="success-message">{success}</div>}
 
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Nombre</label>
-              <input name="name" placeholder="Nombre" onChange={handleChange} value={formData.name} />
-            </div>
-            <div className="form-group">
-              <label>Apellido</label>
-              <input name="surname" placeholder="Apellido" onChange={handleChange} value={formData.surname} />
-            </div>
-            <div className="form-group">
-              <label>Edad</label>
-              <input name="age" type="number" placeholder="Edad" onChange={handleChange} value={formData.age} />
-            </div>
-            <div className="form-group">
-              <label>Correo electrónico</label>
-              <input name="email" type="email" placeholder="Correo electrónico" onChange={handleChange} value={formData.email} />
-            </div>
-            <div className="form-group">
-              <label>Contraseña</label>
-              <input name="password" type="password" placeholder="Contraseña" onChange={handleChange} value={formData.password} />
-            </div>
-            <div className="form-group">
-              <label>Confirmar contraseña</label>
-              <input name="password_confirmation" type="password" placeholder="Confirmar contraseña" onChange={handleChange} value={formData.password_confirmation} />
+            <div className="form-row">
+              <div className="form-group">
+                <label>Nombre</label>
+                <input name="name" placeholder="Nombre" onChange={handleChange} value={formData.name} />
+              </div>
+              <div className="form-group">
+                <label>Apellido</label>
+                <input name="surname" placeholder="Apellido" onChange={handleChange} value={formData.surname} />
+              </div>
             </div>
 
+            <div className='form-row'>
+              <div className="form-group">
+                <label>Edad</label>
+                <input name="age" type="number" placeholder="Edad" onChange={handleChange} value={formData.age} />
+              </div>
+              <div className="form-group">
+                <label>Correo electrónico</label>
+                <input name="email" type="email" placeholder="Correo electrónico" onChange={handleChange} value={formData.email} />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label>Contraseña</label>
+                <input name="password" type="password" placeholder="Contraseña" onChange={handleChange} value={formData.password} />
+              </div>
+              <div className="form-group">
+                <label>Confirmar contraseña</label>
+                <input name="password_confirmation" type="password" placeholder="Confirmar contraseña" onChange={handleChange} value={formData.password_confirmation} />
+              </div>
+            </div>
+
+            <div className="form-group checkbox-group">
+              <label>
+                <input
+                  type="checkbox"
+                    checked={acceptedTerms}
+                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                    />
+                  {' '}Acepto el tratamiento de mis datos personales
+                </label>
+            </div>
             <button type="submit">Registrarse</button>
           </form>
         </div>

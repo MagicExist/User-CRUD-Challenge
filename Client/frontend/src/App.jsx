@@ -1,19 +1,21 @@
 // src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './components/Auth/Login';     // Renombrado para claridad
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
-import Home from './pages/Home'; // Asegúrate de que la ruta sea correcta
+import Home from './pages/Home';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<Login />} />         {/* Login por defecto */}
-        <Route path="/register" element={<Register />} /> {/* Register al navegar */}
-        <Route path="/home" element={<Home />} />       {/* Home después de login exitoso */}
+        <Route path="/" element={<Navigate to="/login" />} /> {/* Redirección automática */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   );
 };
 
 export default App;
+

@@ -1,55 +1,115 @@
-/* src/styles/Home.css */
-.home-container {
+/* Contenedor general */
+.admin-container {
+  display: flex;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  font-family: 'Arial', sans-serif;
+  position: relative;
+  font-family: Arial, sans-serif; /* Fuente Arial */
 }
 
-.header {
-  text-align: center;
-  padding: 2rem;
-  background-color: #f0f2f5;
+/* Botón cerrar sesión arriba a la derecha */
+.logout-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
 }
 
-.main-content {
-  flex: 1;
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+.logout-btn {
+  background-color: #007bff;;
+  color: white;
+  padding: 6px 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* Contenido principal */
+.main {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f1f5f9;
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* Tabla */
+.user-table {
   width: 100%;
+  border-collapse: separate; /* separa las filas */
+  border-spacing: 10 10px;    /* espacio vertical entre filas */
+  background-color: transparent;
+  font-family: Arial, sans-serif; /* Fuente Arial */
 }
 
-.cta-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin: 2rem 0;
+/* Encabezado */
+.user-table thead th {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  border: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-family: Arial, sans-serif; /* Fuente Arial */
 }
 
-.button {
-  padding: 0.75rem 1.5rem;
+/* Filas */
+.user-table tbody tr {
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* Celdas */
+.user-table td {
+  padding: 12px;
+  border-top: 4px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* Quita bordes internos extra */
+.user-table td:first-child {
+  border-left: 1px solid #e5e7eb;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 1px;
+}
+
+.user-table td:last-child {
+  border-right: 1px solid #e5e7eb;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Botones de acción */
+.actions button {
+  margin-right: 8px;
+  padding: 5px 10px;
+  font-size: 12px;
+  border: none;
   border-radius: 4px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: Arial, sans-serif; /* Fuente Arial */
 }
 
-.button-primary {
-  background-color: #2563eb;
+.actions .edit {
+  background-color: #3b82f6;
   color: white;
 }
 
-.button-primary:hover {
-  background-color: #1d4ed8;
+.actions .delete {
+  background-color: #ef4444;
+  color: white;
 }
-
-.button-secondary {
-  border: 1px solid #2563eb;
-  color: #2563eb;
-}
-
-.button-secondary:hover {
-  background-color: #f0f7ff;
-}
-
