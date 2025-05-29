@@ -16,7 +16,7 @@ const Register = () => {
 
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [successVisible, setSuccessVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +26,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSuccess('');
+    setSuccessVisible(false);
 
     if (!acceptedTerms) {
       setError('Debes aceptar el tratamiento de datos personales.');
@@ -50,13 +50,13 @@ const Register = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        setSuccess('Registro exitoso');
-        navigate('/home');
+        setSuccessVisible(true);
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000);
       } else {
         const msg = data.message || 'Error al registrar. Verifica los datos.';
         setError(msg);
-        console.error("Errores:", data);
       }
     } catch (err) {
       console.error("Error de red:", err);
@@ -66,6 +66,12 @@ const Register = () => {
 
   return (
     <div className="app-container">
+      {successVisible && (
+        <div className="success-banner">
+          ✅ Registro exitoso. Redirigiendo al login...
+        </div>
+      )}
+
       <div className="login-wrapper">
         <div
           className="decoration-container"
@@ -83,7 +89,6 @@ const Register = () => {
           <p>Crea tu cuenta</p>
 
           {error && <div className="error-message">{error}</div>}
-          {success && <div className="success-message">{success}</div>}
 
           <form onSubmit={handleSubmit}>
             <div className="form-row">
@@ -123,11 +128,11 @@ const Register = () => {
               <label>
                 <input
                   type="checkbox"
-                    checked={acceptedTerms}
-                    onChange={(e) => setAcceptedTerms(e.target.checked)}
-                    />
-                  {' '}Acepto el tratamiento de mis datos personales
-                </label>
+                  checked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                />
+                {' '}Acepto el tratamiento de mis datos personales
+              </label>
             </div>
             <button type="submit">Registrarse</button>
           </form>

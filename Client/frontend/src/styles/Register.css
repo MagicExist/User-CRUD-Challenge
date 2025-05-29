@@ -104,3 +104,22 @@ button[type="submit"]:hover {
   width: auto;
   margin: 0;
 }
+
+
+.success-banner {
+  position: fixed;       /* Para posicionarlo respecto a la ventana */
+  top: 50%;             /* Mueve la parte superior al 50% vertical de la pantalla */
+  left: 50%;            /* Mueve la parte izquierda al 50% horizontal de la pantalla */
+  transform: translate(-50%, -50%);  /* Lo centra exactamente, corrigiendo el punto de referencia */
+  font-family: 'Arial', sans-serif;
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px 30px;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 9999;        /* Para que esté encima de otros elementos */
+  width: auto;
+  max-width: 90%;
+  text-align: center;
+}
