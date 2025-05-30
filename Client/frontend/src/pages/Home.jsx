@@ -62,7 +62,7 @@ const Home = () => {
   };
 
   const handleEdit = (id) => {
-    navigate(`/userEdit${id}`);
+    navigate(`/userEdit/${id}`); // CORREGIDO: agrega el slash entre userEdit e id
   };
 
   const handleLogout = () => {
@@ -81,9 +81,7 @@ const Home = () => {
 
       <div className="sidebar">
         <h2>Admin Panel</h2>
-        <ul>
-          
-        </ul>
+        <ul></ul>
       </div>
 
       <div className="main">
