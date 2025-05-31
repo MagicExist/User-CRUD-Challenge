@@ -1,3 +1,4 @@
+/* Reset básico y tipografía */
 body {
   margin: 0;
   padding: 0;
@@ -5,11 +6,13 @@ body {
   background-color: #f0f4f8;
 }
 
+/* Contenedor general con espacio superior para el botón volver */
 .user-edit-wrapper {
   position: relative;
-  padding-top: 60px; /* espacio para el botón volver */
+  padding-top: 60px;
 }
 
+/* Botón de volver */
 .btn-volver {
   position: absolute;
   top: 20px;
@@ -24,80 +27,90 @@ body {
   box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
   transition: background-color 0.3s ease;
   z-index: 10;
-  width: auto; /* 👈 Evita que sea 100% */
-  display: inline-block; /* 👈 No bloque completo */
+  width: auto;
+  display: inline-block;
 }
-
 
 .btn-volver:hover {
   background-color: #0056b3;
 }
 
+/* Contenedor del formulario */
 .edit-user-container {
   max-width: 500px;
   margin: 0 auto;
   padding: 30px;
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Título principal */
 .edit-user-container h2 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  margin-bottom: 24px;
+  color: #1e1e2f;
+  font-size: 24px;
 }
 
+/* Formulario */
 .edit-form {
   display: flex;
   flex-direction: column;
 }
 
+/* Etiquetas de campos */
 .edit-form label {
   margin-bottom: 15px;
-  color: #444;
+  color: #333;
   font-weight: 500;
 }
 
+/* Campos de entrada */
 .edit-form input {
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 15px;
   width: 100%;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .edit-form input:focus {
   border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
   outline: none;
 }
 
+/* Contenedor botones */
 .form-buttons {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
+/* Botón principal */
 .form-buttons button {
   background-color: #007bff;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 24px;
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .form-buttons button:hover {
   background-color: #0056b3;
+  transform: translateY(-1px);
 }
 
+/* Mensaje de error */
 .error {
   color: red;
   font-weight: 500;
   margin-bottom: 15px;
   text-align: center;
 }
-

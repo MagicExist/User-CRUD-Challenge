@@ -10,7 +10,6 @@ const UserEdit = () => {
     surname: '',
     email: '',
     age: '',
-    password: ''
   });
   const [error, setError] = useState('');
 
@@ -58,7 +57,7 @@ const UserEdit = () => {
       surname: user.surname,
       email: user.email,
       age: user.age,
-      ...(user.password.trim() !== '' && { password: user.password })
+      
     };
 
     try {
@@ -115,16 +114,6 @@ const UserEdit = () => {
           <label>
             Edad:
             <input type="number" name="age" value={user.age} onChange={handleChange} required />
-          </label>
-          <label>
-            Nueva Contraseña:
-            <input 
-              type="password" 
-              name="password" 
-              value={user.password} 
-              onChange={handleChange} 
-              placeholder="Dejar en blanco si no desea cambiarla" 
-            />
           </label>
           <div className="form-buttons">
             <button type="submit">Guardar Cambios</button>

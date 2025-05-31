@@ -40,8 +40,9 @@ function Login() {
 
       const data = await response.json();
       localStorage.setItem('token', data.token); // Guarda el token
+      localStorage.setItem('user_email', email); // Guarda el correo del usuario
       setSuccess('Inicio de sesión exitoso.');
-      navigate('/home'); 
+      navigate('/home');
 
     } catch (error) {
       console.error('Login error:', error);

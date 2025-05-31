@@ -8,6 +8,8 @@ const Home = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const userEmail = localStorage.getItem('user_email');
+
   const fetchUsers = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -62,11 +64,12 @@ const Home = () => {
   };
 
   const handleEdit = (id) => {
-    navigate(`/userEdit/${id}`); // CORREGIDO: agrega el slash entre userEdit e id
+    navigate(`/userEdit/${id}`);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user_email');
     navigate('/login');
   };
 
@@ -75,13 +78,15 @@ const Home = () => {
 
   return (
     <div className="admin-container">
-      <div className="logout-container">
-        <button className="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
-      </div>
-
       <div className="sidebar">
-        <h2>Admin Panel</h2>
-        <ul></ul>
+        <div className="sidebar-left">
+          <h2>Admin Panel</h2>
+          <p style={{ color: 'white' }}>Bienvenido, {userEmail}</p>
+        </div>
+        <div className="sidebar-right">
+          <button className="add-user-btn" onClick={() => navigate('/userAgg')}>Agregar Usuario</button>
+          <button className="logout-btn" onClick={handleLogout}>Cerrar sesión</button>
+        </div>
       </div>
 
       <div className="main">

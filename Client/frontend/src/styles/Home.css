@@ -1,115 +1,139 @@
-/* Contenedor general */
+/* General layout */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+}
+
 .admin-container {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  position: relative;
-  font-family: Arial, sans-serif; /* Fuente Arial */
 }
 
-/* Botón cerrar sesión arriba a la derecha */
-.logout-container {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
-}
-
-.logout-btn {
-  background-color: #007bff;;
-  color: white;
-  padding: 6px 10px;
-  font-size: 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: Arial, sans-serif; /* Fuente Arial */
-}
-
-/* Sidebar */
+/* Sidebar-style top bar */
 .sidebar {
-  width: 220px;
-  background-color: #007bff;
+  background-color: #3b82f6;
   color: white;
-  padding: 20px;
-  font-family: Arial, sans-serif; /* Fuente Arial */
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
-/* Contenido principal */
-.main {
-  flex-grow: 1;
-  padding: 20px;
-  background-color: #f1f5f9;
-  font-family: Arial, sans-serif; /* Fuente Arial */
+.sidebar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-/* Tabla */
-.user-table {
-  width: 100%;
-  border-collapse: separate; /* separa las filas */
-  border-spacing: 10 10px;    /* espacio vertical entre filas */
-  background-color: transparent;
-  font-family: Arial, sans-serif; /* Fuente Arial */
+.sidebar-left h2 {
+  margin: 0;
+  font-size: 1.4em;
 }
 
-/* Encabezado */
-.user-table thead th {
-  background-color: #007bff;
-  color: white;
-  padding: 12px;
-  text-align: left;
-  border: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  font-family: Arial, sans-serif; /* Fuente Arial */
+.sidebar-left span {
+  font-size: 0.95em;
+  color: #eafaf1;
 }
 
-/* Filas */
-.user-table tbody tr {
-  background-color: white;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  border-radius: 8px;
-  overflow: hidden;
-  font-family: Arial, sans-serif; /* Fuente Arial */
+.sidebar-right {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
 
-/* Celdas */
-.user-table td {
-  padding: 12px;
-  border-top: 4px solid #e5e7eb;
-  border-bottom: 1px solid #e5e7eb;
-  font-family: Arial, sans-serif; /* Fuente Arial */
+@media (min-width: 600px) {
+  .sidebar-right {
+    margin-top: 0;
+  }
 }
 
-/* Quita bordes internos extra */
-.user-table td:first-child {
-  border-left: 1px solid #e5e7eb;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 1px;
-}
-
-.user-table td:last-child {
-  border-right: 1px solid #e5e7eb;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-/* Botones de acción */
-.actions button {
-  margin-right: 8px;
-  padding: 5px 10px;
-  font-size: 12px;
+/* Buttons */
+button {
+  font-weight: bold;
+  padding: 8px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-family: Arial, sans-serif; /* Fuente Arial */
 }
 
-.actions .edit {
-  background-color: #3b82f6;
+.logout-btn {
+  background-color: #e74c3c;
   color: white;
 }
 
-.actions .delete {
-  background-color: #ef4444;
+.logout-btn:hover {
+  background-color: #c0392b;
+}
+
+.add-user-btn {
+  background-color: #2980b9;
   color: white;
+}
+
+.add-user-btn:hover {
+  background-color: #21618c;
+}
+
+/* Main content */
+.main {
+  padding: 20px;
+}
+
+.main h2 {
+  margin-bottom: 20px;
+}
+
+/* Table */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+/* Action buttons */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit {
+  background-color: #3498db;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.edit:hover {
+  background-color: #2980b9;
+}
+
+.delete {
+  background-color: #e74c3c;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.delete:hover {
+  background-color: #c0392b;
 }
