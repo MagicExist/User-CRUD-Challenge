@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../styles/Register.css'; // reutilizamos los estilos del registro
+import '../../styles/UserAdd.css';
 
 const UserAdd = () => {
   const navigate = useNavigate();
@@ -61,68 +61,51 @@ const UserAdd = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="user-add-wrapper">
       {successVisible && (
         <div className="success-banner">
-          ✅ Usuario agregado exitosamente. Redirigiendo...
+          Usuario agregado exitosamente. Redirigiendo...
         </div>
       )}
 
-      <div className="login-wrapper">
-        <div
-          className="decoration-container"
-          onClick={() => navigate('/home')}
-          style={{ cursor: 'pointer' }}
-        >
-          <div className="decoration-content">
-            <h3>Volver</h3>
-            <p>Volver al panel de usuarios</p>
-          </div>
-        </div>
+      <button className="btn-volver" onClick={() => navigate('/home')}>Volver</button>
 
-        <div className="login-container">
-          <h2>Agregar Usuario</h2>
-          <p>Completa los datos del nuevo usuario</p>
+      <div className="user-add-container">
+        <h2>Agregar Usuario</h2>
+        <p>Completa los datos del nuevo usuario</p>
 
-          {error && <div className="error-message">{error}</div>}
+        {error && <div className="error">{error}</div>}
 
-          <form onSubmit={handleSubmit}>
-            <div className="form-row">
-              <div className="form-group">
-                <label>Nombre</label>
-                <input name="name" placeholder="Nombre" onChange={handleChange} value={formData.name} />
-              </div>
-              <div className="form-group">
-                <label>Apellido</label>
-                <input name="surname" placeholder="Apellido" onChange={handleChange} value={formData.surname} />
-              </div>
-            </div>
+        <form className="edit-form" onSubmit={handleSubmit}>
+          <label>
+            Nombre
+            <input name="name" value={formData.name} onChange={handleChange} placeholder="Nombre" />
+          </label>
+          <label>
+            Apellido
+            <input name="surname" value={formData.surname} onChange={handleChange} placeholder="Apellido" />
+          </label>
+          <label>
+            Edad
+            <input name="age" type="number" value={formData.age} onChange={handleChange} placeholder="Edad" />
+          </label>
+          <label>
+            Correo electrónico
+            <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Correo electrónico" />
+          </label>
+          <label>
+            Contraseña
+            <input name="password" type="password" value={formData.password} onChange={handleChange} placeholder="Contraseña" />
+          </label>
+          <label>
+            Confirmar contraseña
+            <input name="password_confirmation" type="password" value={formData.password_confirmation} onChange={handleChange} placeholder="Confirmar contraseña" />
+          </label>
 
-            <div className='form-row'>
-              <div className="form-group">
-                <label>Edad</label>
-                <input name="age" type="number" placeholder="Edad" onChange={handleChange} value={formData.age} />
-              </div>
-              <div className="form-group">
-                <label>Correo electrónico</label>
-                <input name="email" type="email" placeholder="Correo electrónico" onChange={handleChange} value={formData.email} />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label>Contraseña</label>
-                <input name="password" type="password" placeholder="Contraseña" onChange={handleChange} value={formData.password} />
-              </div>
-              <div className="form-group">
-                <label>Confirmar contraseña</label>
-                <input name="password_confirmation" type="password" placeholder="Confirmar contraseña" onChange={handleChange} value={formData.password_confirmation} />
-              </div>
-            </div>
-
+          <div className="form-buttons">
             <button type="submit">Agregar Usuario</button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );

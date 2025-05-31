@@ -68,7 +68,7 @@ const Register = () => {
     <div className="app-container">
       {successVisible && (
         <div className="success-banner">
-          ✅ Registro exitoso. Redirigiendo al login...
+          Registro exitoso. Redirigiendo al login...
         </div>
       )}
 
